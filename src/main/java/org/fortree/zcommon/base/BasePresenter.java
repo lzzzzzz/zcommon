@@ -1,37 +1,32 @@
 package org.fortree.zcommon.base;
 
-import android.content.Context;
-
-import org.fortree.zcommon.framework.net.BaseModel;
-
-import java.lang.ref.WeakReference;
-
-
 /**
- * Created by DeMon on 2017/9/22.
+ * author:  ljy
+ * date：   2018/3/18
+ * description: Presenter基类
+ * <a>https://www.jianshu.com/p/1f91cfd68d48</a>
  */
+public abstract class BasePresenter<V extends IBaseView,M extends IBaseModel>{
 
-public abstract class BasePresenter<T extends BaseView> {
-    protected WeakReference<T> mView;
-    protected BaseModel mModel = new BaseModel();
-    protected Context mContext;
+    protected V mIView;
+    protected M mIModel;
 
-    public BasePresenter(T view) {
-        mView = new WeakReference<>(view);
+    public BasePresenter(V iView,M iModel) {
+        mIView = iView;
+        mIModel = iModel;
     }
 
-    public T getView() {
-        return mView.get();
+    public BasePresenter(V iView) {
+        mIView = iView;
     }
 
-    //释放view及model的内存空间
-    public void onDestroy() {
-        if (mView != null) {
-            mView.clear();
-            mView = null;
-        }
-        if (mModel != null) {
-            mModel = null;
-        }
+    public BasePresenter() {
+    }
+
+    /**
+     * 释放引用，防止内存泄露
+     */
+    public void destroy() {
+        mIView = null;
     }
 }

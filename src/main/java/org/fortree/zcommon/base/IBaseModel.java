@@ -1,4 +1,5 @@
 package org.fortree.zcommon.base;
 
-public interface BaseView {
+public interface IBaseModel {
+
 }
